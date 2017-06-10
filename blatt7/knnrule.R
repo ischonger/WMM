@@ -14,7 +14,7 @@ knn.heldout <- function(train, test, k=1) {
 
 # b)
 knn.leave1out <- function(data, k=1) {
-  #sapply(data, function(x) knn.heldout(data[-x,],data[x,]) )
+  #sapply(data, function(x) knn.heldout(data[-x,],data[x,]), k=k)
   
   s <- 0
   for(i in 1:dim(data)[1]) {
@@ -62,5 +62,6 @@ g
 total <- rbind(germany.lern, germany.test)
 h <- integer(24)
 for(i in 1:dim(total)[2]) {
-  h[i] <- knn.leave1out(total[,-i]) 
+  h[i] <- knn.heldout(germany.lern[,-i], germany.test[,-i]) / knn.leave1out(total[,-i]) 
 }
+h

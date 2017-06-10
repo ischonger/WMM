@@ -61,7 +61,24 @@ g
 # h)
 total <- rbind(germany.lern, germany.test)
 h <- integer(24)
+h2 <- integer(24)
 for(i in 1:dim(total)[2]) {
-  h[i] <- knn.heldout(germany.lern[,-i], germany.test[,-i]) / knn.leave1out(total[,-i]) 
+  h[i] <- knn.leave1out(total[,-i]) 
+  h2[i] <- knn.heldout(germany.lern[,-i], germany.test[,-i]) 
 }
-h
+h; h2
+
+# i) (nur zur besseren Darstellung)
+par(mfrow=c(2,1));
+plot(h*100, main = "leave1out", xlab = "alle Merkmale außer i-tem", ylab = "Testfehler (%)" )
+plot(h2*100, main = "heldout", xlab = "alle Merkmale außer i-tem", ylab = "Testfehler (%)" )
+
+
+# 
+#j <- integer(10)
+#for(i in 1:10) {       #Berechnung dauert länger, daher ausgeklammert
+#  all <- knn.leave1out(total)
+#  best23 <- knn.leave1out(total[,-4][,-4]) # ohne schlechteste Merkmale Nr 4 und 5
+#  j[i] <- all-best23
+#}
+#j

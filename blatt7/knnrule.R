@@ -13,6 +13,10 @@ knn.heldout <- function(train, test, k=1) {
 }
 
 # b)
+test <- function(data, k=1) {
+  lapply(data, function(x) { knn.heldout(data[-x], data[x], k=k)} )
+}
+
 knn.leave1out <- function(data, k=1) {
   #sapply(data, function(x) knn.heldout(data[-x,],data[x,]), k=k)
   
@@ -32,23 +36,25 @@ cast <- function(x) {
 }
 
 K <- c(1,2,3,5,7,10,14,19,25)
-m <- matrix(ncol = 9, nrow = 6)
+m <- matrix(ncol = 9, nrow = 5)
 j <- 1
 a <- rbind(diabetes.test, diabetes.lern)
 for(i in K) {
-  m[1,j] <- paste("k=",i)
-  m[2,j] <- cast(knn.heldout(diabetes.lern, diabetes.test, k=i)); 
+  m[1,j] <- cast(knn.heldout(diabetes.lern, diabetes.test, k=i)); 
   # d)
-  m[3,j] <- cast(knn.heldout(diabetes.test, diabetes.lern, k=i));
+  m[2,j] <- cast(knn.heldout(diabetes.test, diabetes.lern, k=i));
   # e)
-  m[4,j] <- cast(knn.leave1out(a, k=i))
+  m[3,j] <- cast(knn.leave1out(a, k=i))
   # f)
+  m[4,j] <- cast(knn.leave1out(a, k=i))
   m[5,j] <- cast(knn.leave1out(a, k=i))
-  m[6,j] <- cast(knn.leave1out(a, k=i))
   
   j <- j+1 
 }
+colnames(m) <- c("k=1", "k=2", "k=3", "k=5", "k=7", "k=10", "k=14", "k=19", "k=25")
+rownames(m) <- c("c)", "d)", "e", "f1)", "f2)")
 m
+
 
 # g)
 #load(./path/to/file/letter.rda)

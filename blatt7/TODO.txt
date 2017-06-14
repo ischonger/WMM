@@ -1,4 +1,0 @@
-- listen g und germanyError haben noch keine Bezeichner
-- die beiden knn-fkts können noch beschleunigt werden (mit sapply...)
-- von Teil 2 abzugeben sind: knnrule.R, errors.rda und 
-	"wmm u7 tapir aufg2 schriftlicher teil.pdf"
